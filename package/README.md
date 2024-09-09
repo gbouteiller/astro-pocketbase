@@ -1,27 +1,27 @@
-# `package-name`
+# `astro-pocketbase`
 
-This is an [Astro integration](https://docs.astro.build/en/guides/integrations-guide/) that TODO:description
+This is an [Astro integration](https://docs.astro.build/en/guides/integrations-guide/) that ease the use of Pocketbase in your Astro projects
 
 ## Usage
 
 ### Prerequisites
 
-TODO:
+None
 
 ### Installation
 
 Install the integration **automatically** using the Astro CLI:
 
 ```bash
-pnpm astro add package-name
+pnpm astro add astro-pocketbase
 ```
 
 ```bash
-npx astro add package-name
+npx astro add astro-pocketbase
 ```
 
 ```bash
-yarn astro add package-name
+yarn astro add astro-pocketbase
 ```
 
 Or install it **manually**:
@@ -29,32 +29,32 @@ Or install it **manually**:
 1. Install the required dependencies
 
 ```bash
-pnpm add package-name
+pnpm add astro-pocketbase
 ```
 
 ```bash
-npm install package-name
+npm install astro-pocketbase
 ```
 
 ```bash
-yarn add package-name
+yarn add astro-pocketbase
 ```
 
 2. Add the integration to your astro config
 
 ```diff
-+import integration from "package-name";
++import pocketbase from "astro-pocketbase";
 
 export default defineConfig({
   integrations: [
-+    integration(),
++    pocketbase(),
   ],
 });
 ```
 
 ### Configuration
 
-TODO:configuration
+None
 
 ## Contributing
 
@@ -79,8 +79,9 @@ You can now edit files in `package`. Please note that making changes to those fi
 
 ## Licensing
 
-[MIT Licensed](https://github.com/TODO:/blob/main/LICENSE). Made with ❤️ by [TODO:](https://github.com/TODO:).
+[MIT Licensed](https://github.com/gbouteiller/astro-pocketbase/blob/main/LICENSE). Made with ❤️ by [Gregory Bouteiller](https://github.com/gbouteiller).
 
 ## Acknowledgements
 
-TODO:
+- [`astro-integration-kit`](https://github.com/florian-lefebvre/astro-integration-kit) by Florian Lefebvre
+- [`pocketbase`](https://github.com/pocketbase/js-sdk) by Gani Georgiev
