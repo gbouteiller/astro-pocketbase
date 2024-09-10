@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@astrojs/tailwind": "^5.1.0",
-    "astro": "^4.15.1",
+    "astro": "^4.15.4",
     "astro-integration-kit": "^0.16.1",
     "astro-pocketbase": "workspace:*",
     "daisyui": "^4.12.10",
@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.3",
-    "@types/node": "^20.16.3",
-    "typescript": "^5.5.4"
+    "@types/node": "^22.5.4",
+    "typescript": "^5.6.2"
   }
 }

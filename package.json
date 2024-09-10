@@ -15,7 +15,13 @@
     "lint:fix": "biome check --apply ."
   },
   "devDependencies": {
-    "@biomejs/biome": "1.8.3",
-    "@changesets/cli": "^2.27.7"
+    "@changesets/cli": "^2.27.8",
+    "@typescript-eslint/parser": "^8.5.0",
+    "eslint": "^9.10.0",
+    "eslint-plugin-astro": "^1.2.3",
+    "eslint-plugin-jsx-a11y": "^6.10.0",
+    "prettier": "^3.3.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.6.6"
   }
 }
