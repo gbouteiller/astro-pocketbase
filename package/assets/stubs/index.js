@@ -10,9 +10,9 @@ export const COLLECTION = Collection.enum;
 
 /******* BASE *******/
 export const BaseModel = z.object({
-  created: z.coerce.date(),
+  created: z.string().datetime().transform((value) => new Date(value)),
   id: z.string(),
-  updated: z.coerce.date(),
+  updated: z.string().datetime().transform((value) => new Date(value)),
 });
 
 export const AdminModel = z.object({
