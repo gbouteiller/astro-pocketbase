@@ -1,0 +1,72 @@
+---
+title: Manual setup
+description: A reference page in my new Starlight docs site.
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+## Installation
+
+First, install the `astro-pocketbase` package:
+
+<Tabs>
+  <TabItem label="npm">
+    ```bash
+    npm install astro-pocketbase
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add astro-pocketbase
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add astro-pocketbase
+    ```
+  </TabItem>
+</Tabs>
+
+Most package managers will install associated peer dependencies as well. If you see a `"Cannot find package 'pocketbase'"` (or similar) warning when you start up Astro, you'll need to install `pocketbase`:
+
+<Tabs>
+  <TabItem label="npm">
+    ```shell
+    npm install pocketbase
+    ```
+  </TabItem>
+  <TabItem label="pnpm">
+    ```shell
+    pnpm add pocketbase
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```shell
+    yarn add pocketbase
+    ```
+  </TabItem>
+</Tabs>
+
+Then, apply the integration to your `astro.config.*` file using the `integrations` property:
+
+```js ins="pocketbase()" ins={2} title="astro.config.mjs"
+import { defineConfig } from "astro/config";
+import pocketbase from "astro-pocketbase";
+
+export default defineConfig({
+  // ...
+  integrations: [pocketbase()],
+});
+```
+
+## Environment variables
+
+You also need to provide 3 environment variables for **Astro PocketBase** to retrieve your collections:
+
+```shell
+# This will only be available when run on the server!
+ASTRO_POCKETBASE_ADMIN_EMAIL="admin@mydomain.com"
+ASTRO_POCKETBASE_ADMIN_PASSWORD="mypassword"
+# This will be available everywhere!
+PUBLIC_ASTRO_POCKETBASE_URL="https://myproject.pockethost.io"
+```
