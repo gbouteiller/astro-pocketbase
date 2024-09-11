@@ -1,6 +1,6 @@
+import { pascalCase, snakeCase, sortBy } from "es-toolkit";
 import type { CollectionModel, SchemaField } from "pocketbase";
 import type { Options } from "./options.ts";
-import { pascalCase, snakeCase, sortBy } from "es-toolkit";
 import { getCollectionNameFromId, getCollectionSelectFields, stringifyCollectionNames, type SelectField } from "./utils.ts";
 
 export function stringifyContent(collections: CollectionModel[], options: Options) {
@@ -40,7 +40,7 @@ export function stringifyContent(collections: CollectionModel[], options: Option
 
   function stringifyDateField(_field: SchemaField) {
     // TODO: implement min and max
-    return "z.string().datetime().transform((value) => new Date(value))";
+    return "z.string().pipe(z.coerce.date())";
   }
 
   function stringifyEditorField(_field: SchemaField) {

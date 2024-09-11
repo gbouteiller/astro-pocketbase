@@ -43,7 +43,7 @@ export function stringifyTypes(collections: CollectionModel[], options: Options)
   function stringifyFieldSchema(field: SchemaField) {
     let type: string | undefined;
     if (field.type === "bool") type = "z.ZodBoolean";
-    else if (field.type === "date") type = "z.ZodEffects<z.ZodString, Date, string>";
+    else if (field.type === "date") type = "z.ZodPipeline<z.ZodString, z.ZodDate>";
     else if (field.type === "editor") type = "z.ZodString";
     else if (field.type === "email") type = "z.ZodString";
     else if (field.type === "file") type = field.options.maxSelect === 1 ? "z.ZodString" : `z.ZodArray<z.ZodString, "many">`;
