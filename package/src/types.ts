@@ -80,7 +80,7 @@ export function stringifyTypes(collections: CollectionModel[], options: Options)
   function stringifyFieldOutput(field: SchemaField) {
     let type: string | undefined;
     if (field.type === "date") type = "Date";
-    if (field.type === "relation") {
+    else if (field.type === "relation") {
       const collection = getCollectionNameFromId(field.options.collectionId, collections);
       const singular = `{ collection: "${collection}"; id: string; }`;
       type = field.options.maxSelect === 1 ? singular : `${singular}[]`;
