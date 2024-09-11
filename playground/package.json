@@ -11,6 +11,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@11ty/eleventy-fetch": "^4.0.1",
     "@astrojs/tailwind": "^5.1.0",
     "astro": "^4.15.4",
     "astro-integration-kit": "^0.16.1",
