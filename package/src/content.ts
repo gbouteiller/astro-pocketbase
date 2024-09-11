@@ -70,11 +70,11 @@ export function stringifyContent(collections: CollectionModel[], options: Option
   function stringifyRelationField({ options }: SchemaField) {
     const { collectionId, maxSelect, minSelect } = options;
     // TODO: implement cascadeDelete, displayFields
-    const reference = getCollectionNameFromId(collectionId, collections);
+    const collection = getCollectionNameFromId(collectionId, collections);
     const min = minSelect ? `.min(${minSelect})` : "";
     const max = maxSelect ? `.max(${maxSelect})` : "";
     const multiple = maxSelect === 1 ? "" : `.array()${min}${max}`;
-    return `reference("${reference}")${multiple}`;
+    return `z.string().transform((id) => ({ collection: "${collection}", id }))${multiple}`;
   }
 
   function stringifySelectField({ options: { maxSelect } }: SchemaField) {

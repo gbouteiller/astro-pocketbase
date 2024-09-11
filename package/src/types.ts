@@ -1,6 +1,6 @@
+import { pascalCase, snakeCase, sortBy } from "es-toolkit";
 import type { CollectionModel, SchemaField } from "pocketbase";
 import type { Options } from "./options.ts";
-import { pascalCase, snakeCase, sortBy } from "es-toolkit";
 import {
   getCollectionNameFromId,
   getCollectionSelectFields,
@@ -43,15 +43,15 @@ export function stringifyTypes(collections: CollectionModel[], options: Options)
   function stringifyFieldSchema(field: SchemaField) {
     let type: string | undefined;
     if (field.type === "bool") type = "z.ZodBoolean";
-    else if (field.type === "date") type = "z.ZodDate";
+    else if (field.type === "date") type = "z.ZodEffects<z.ZodString, Date, string>";
     else if (field.type === "editor") type = "z.ZodString";
     else if (field.type === "email") type = "z.ZodString";
     else if (field.type === "file") type = field.options.maxSelect === 1 ? "z.ZodString" : `z.ZodArray<z.ZodString, "many">`;
     else if (field.type === "json") type = "Z.ZodAny";
     else if (field.type === "number") type = "z.ZodNumber";
     else if (field.type === "relation") {
-      const reference = getCollectionNameFromId(field.options.collectionId, collections);
-      const singular = `z.ZodEffects<z.ZodString, { collection: "${reference}"; id: string; }, string>`;
+      const collection = getCollectionNameFromId(field.options.collectionId, collections);
+      const singular = `z.ZodEffects<z.ZodString, { collection: "${collection}"; id: string; }, string>`;
       type = field.options.maxSelect === 1 ? singular : `z.ZodArray<${singular}, "many">`;
     } else if (field.type === "select") type = field.options.maxSelect === 1 ? "z.ZodString" : `z.ZodArray<z.ZodString, "many">`;
     else if (field.type === "text") type = "z.ZodString";
@@ -78,11 +78,13 @@ export function stringifyTypes(collections: CollectionModel[], options: Options)
   }
 
   function stringifyFieldOutput(field: SchemaField) {
-    if (field.type === "date") return `${field.name}${field.required ? `: Date` : `?: Date | undefined`}`;
-    if (field.type !== "relation") return stringifyFieldInput(field);
-    const reference = getCollectionNameFromId(field.options.collectionId, collections);
-    const singular = `{ collection: "${reference}"; id: string; }`;
-    const type = field.options.maxSelect === 1 ? singular : `${singular}[]`;
+    let type: string | undefined;
+    if (field.type === "date") type = "Date";
+    if (field.type === "relation") {
+      const collection = getCollectionNameFromId(field.options.collectionId, collections);
+      const singular = `{ collection: "${collection}"; id: string; }`;
+      type = field.options.maxSelect === 1 ? singular : `${singular}[]`;
+    } else return stringifyFieldInput(field);
     return `${field.name}${field.required ? `: ${type}` : `?: ${type} | undefined`}`;
   }
 

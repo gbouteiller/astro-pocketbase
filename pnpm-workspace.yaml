@@ -1,4 +1,5 @@
 packages:
+  - doc
   - package
   - packages/*
   - playground

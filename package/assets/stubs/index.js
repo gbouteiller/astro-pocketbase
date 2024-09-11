@@ -1,4 +1,4 @@
-import { reference, z } from 'astro:content';
+import { z } from 'astro:content';
 import Pocketbase from "pocketbase";
 
 /******* ENUMS *******/
