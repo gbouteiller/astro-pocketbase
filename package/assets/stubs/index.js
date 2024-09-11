@@ -1,5 +1,5 @@
+import eFetch from "@11ty/eleventy-fetch";
 import { z } from 'astro:content';
-import Pocketbase from "pocketbase";
 
 /******* ENUMS *******/
 export const collectionValues = @@_COLLECTION_NAMES_@@;
@@ -37,22 +37,40 @@ export function pocketbaseLoader({ collection }) {
 		name: "pocketbase-loader",
 		load: async ({ store, logger, parseData, generateDigest }) => {
       const { ASTRO_POCKETBASE_ADMIN_EMAIL, ASTRO_POCKETBASE_ADMIN_PASSWORD, PUBLIC_ASTRO_POCKETBASE_URL } = import.meta.env;
-		  if (!ASTRO_POCKETBASE_ADMIN_EMAIL || !ASTRO_POCKETBASE_ADMIN_PASSWORD || !PUBLIC_ASTRO_POCKETBASE_URL) 
+      if (!ASTRO_POCKETBASE_ADMIN_EMAIL || !ASTRO_POCKETBASE_ADMIN_PASSWORD || !PUBLIC_ASTRO_POCKETBASE_URL)
         return logger.error("undefined env variables");
-			try {
-        const pocketbase = new Pocketbase(PUBLIC_ASTRO_POCKETBASE_URL);
-        await pocketbase.admins.authWithPassword(ASTRO_POCKETBASE_ADMIN_EMAIL, ASTRO_POCKETBASE_ADMIN_PASSWORD);
-				const records = await pocketbase.collection(collection).getFullList();
-				store.clear();
-				for (const { id, ...rest } of records) {
-					const data = await parseData({ id, data: { id, ...rest } });
-					const digest = generateDigest(data);
-					store.set({ data, digest, id });
-				}
-			} catch (error) {
-				logger.error(`Error fetching ${collection}: ${error}`);
-				return;
-			}
+
+      try {
+        const { token } = await eFetch(`${PUBLIC_ASTRO_POCKETBASE_URL}/api/admins/auth-with-password`, {
+          duration: "0s",
+          dryRun: true,
+          type: "json",
+          fetchOptions: {
+            body: JSON.stringify({ identity: ASTRO_POCKETBASE_ADMIN_EMAIL, password: ASTRO_POCKETBASE_ADMIN_PASSWORD }),
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+          },
+        });
+
+        const { items } = await eFetch(`${PUBLIC_ASTRO_POCKETBASE_URL}/api/collections/${collection}/records?perPage=200`, {
+          duration: "1d",
+          type: "json",
+          fetchOptions: {
+            headers: { Authorization: token },
+          },
+        });
+
+        store.clear();
+
+        for (const { id, ...rest } of items) {
+          const data = await parseData({ id, data: { id, ...rest } });
+          const digest = generateDigest(data);
+          store.set({ data, digest, id });
+        }
+      } catch (error) {
+        logger.error(`Error fetching ${collection}: ${error}`);
+        return;
+      }
 		},
     schema: records.get(collection),
 	};
