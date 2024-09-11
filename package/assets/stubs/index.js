@@ -36,7 +36,7 @@ export function pocketbaseLoader({ collection }) {
 	return {
 		name: "pocketbase-loader",
 		load: async ({ store, logger, parseData, generateDigest }) => {
-      const { ASTRO_POCKETBASE_ADMIN_EMAIL, ASTRO_POCKETBASE_ADMIN_PASSWORD, PUBLIC_ASTRO_POCKETBASE_URL } = import.meta.env;
+      const { ASTRO_POCKETBASE_ADMIN_EMAIL, ASTRO_POCKETBASE_ADMIN_PASSWORD, PROD, PUBLIC_ASTRO_POCKETBASE_URL } = import.meta.env;
       if (!ASTRO_POCKETBASE_ADMIN_EMAIL || !ASTRO_POCKETBASE_ADMIN_PASSWORD || !PUBLIC_ASTRO_POCKETBASE_URL)
         return logger.error("undefined env variables");
 
@@ -53,7 +53,8 @@ export function pocketbaseLoader({ collection }) {
         });
 
         const { items } = await eFetch(`${PUBLIC_ASTRO_POCKETBASE_URL}/api/collections/${collection}/records?perPage=200`, {
-          duration: "1d",
+          duration: "@@_CACHE_DURATION_@@",
+					dryRun: PROD,
           type: "json",
           fetchOptions: {
             headers: { Authorization: token },
