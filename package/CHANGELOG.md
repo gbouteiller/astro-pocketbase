@@ -1,5 +1,11 @@
 # astro-pocketbase
 
+## 0.3.0
+
+### Minor Changes
+
+- 257edb1: add a dev toolbar app to clear cache and refresh collections
+
 ## 0.2.3
 
 ### Patch Changes
