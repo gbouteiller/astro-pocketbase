@@ -1,5 +1,11 @@
 # astro-pocketbase
 
+## 0.3.1
+
+### Patch Changes
+
+- 756b35e: fix loader id for refreshContent
+
 ## 0.3.0
 
 ### Minor Changes
