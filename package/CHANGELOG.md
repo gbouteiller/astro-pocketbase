@@ -1,5 +1,12 @@
 # astro-pocketbase
 
+## 0.2.3
+
+### Patch Changes
+
+- 120e5f5: remove useless code
+- 9b462a1: add RecordRef type
+
 ## 0.2.2
 
 ### Patch Changes
