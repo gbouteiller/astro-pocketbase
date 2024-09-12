@@ -63,7 +63,7 @@ export const integration = defineIntegration({
         "astro:server:setup": ({ refreshContent, toolbar }) => {
           toolbar.on("astro-pocketbase:refresh", async () => {
             rmSync("./.cache", { recursive: true, force: true });
-            await refreshContent({ loaders: ["astro-pocketbase"] });
+            await refreshContent({ loaders: ["pocketbase-loader"] });
           });
         },
       },
