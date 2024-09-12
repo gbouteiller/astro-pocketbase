@@ -14,6 +14,7 @@ declare module "pocketbase:astro" {
   export const collectionValues: readonly @@_COLLECTION_NAMES_@@;
   export const Collection: z.ZodEnum<@@_COLLECTION_NAMES_@@>;
   export const COLLECTION: z.Values<@@_COLLECTION_NAMES_@@>;
+  export type Collection = z.infer<typeof Collection>;
   
   @@_ENUMS_@@
 
