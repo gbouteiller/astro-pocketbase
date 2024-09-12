@@ -1,14 +1,7 @@
 import { pascalCase, snakeCase, sortBy } from "es-toolkit";
 import type { CollectionModel, SchemaField } from "pocketbase";
 import type { Options } from "./options.ts";
-import {
-  getCollectionNameFromId,
-  getCollectionSelectFields,
-  schemaField,
-  stringifyCollectionNames,
-  stringifyCollectionUnion,
-  type SelectField,
-} from "./utils.ts";
+import { getCollectionNameFromId, getCollectionSelectFields, schemaField, stringifyCollectionNames, type SelectField } from "./utils.ts";
 
 export function stringifyTypes(collections: CollectionModel[], options: Options) {
   function stringifyEnum({ name, values }: SelectField) {

@@ -13,7 +13,7 @@
   "dependencies": {
     "@11ty/eleventy-fetch": "^4.0.1",
     "@astrojs/tailwind": "^5.1.0",
-    "astro": "^4.15.4",
+    "astro": "5.0.0-alpha.6",
     "astro-integration-kit": "^0.16.1",
     "astro-pocketbase": "workspace:*",
     "daisyui": "^4.12.10",
