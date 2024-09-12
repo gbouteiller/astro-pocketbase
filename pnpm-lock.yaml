@@ -53,9 +53,6 @@ importers:
 
   package:
     dependencies:
-      '@11ty/eleventy-fetch':
-        specifier: ^4.0.1
-        version: 4.0.1
       astro:
         specifier: ^4.15.1
         version: 4.15.4(@types/node@22.5.4)(rollup@4.21.2)(typescript@5.6.2)
@@ -69,6 +66,9 @@ importers:
         specifier: ^1.17.0
         version: 1.17.0
     devDependencies:
+      '@11ty/eleventy-fetch':
+        specifier: ^4.0.1
+        version: 4.0.1
       pocketbase:
         specifier: ^0.21.5
         version: 0.21.5
