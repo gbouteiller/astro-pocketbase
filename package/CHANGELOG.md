@@ -1,5 +1,11 @@
 # astro-pocketbase
 
+## 0.2.2
+
+### Patch Changes
+
+- 295f9ee: add Collection type
+
 ## 0.2.1
 
 ### Patch Changes
