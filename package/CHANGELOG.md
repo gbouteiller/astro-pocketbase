@@ -1,5 +1,11 @@
 # astro-pocketbase
 
+## 0.2.1
+
+### Patch Changes
+
+- aeeb739: add eleventy-fetch as peer dependency
+
 ## 0.2.0
 
 ### Minor Changes

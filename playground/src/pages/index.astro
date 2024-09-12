@@ -4,7 +4,7 @@ import Layout from "../layouts/main.astro";
 
 const record1 = await getEntry("config", "fedcba987654321");
 const record2 = await Astro.locals.pocketbase.collection("config").getOne("fedcba987654321");
-console.log(record1.data.created, record2.created);
+console.log(record1, record2);
 ---
 
 <Layout title="Welcome to Astro.">
