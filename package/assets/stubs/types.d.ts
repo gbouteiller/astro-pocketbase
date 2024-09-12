@@ -5,7 +5,7 @@ declare module "pocketbase:astro" {
 
   /******* LOADER *******/
   export type PocketbaseLoaderOptions = { 
-    collection: @@_COLLECTIONS_UNION_@@;
+    collection: Collection;
   };
 
   export const pocketbaseLoader: (options: PocketbaseLoaderOptions) => <T>() => Promise<T[]>;

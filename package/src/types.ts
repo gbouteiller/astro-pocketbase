@@ -93,7 +93,6 @@ export function stringifyTypes(collections: CollectionModel[], options: Options)
   }
 
   return {
-    collectionsUnion: stringifyCollectionUnion(collections),
     collectionNames: stringifyCollectionNames(collections),
     enums: getCollectionSelectFields(collections).map(stringifyEnum).join("\n\n\t"),
     records: `${collections.map(stringifyRecord).join("\n\n\t")}`,

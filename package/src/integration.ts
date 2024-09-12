@@ -41,10 +41,9 @@ export const integration = defineIntegration({
 
         "astro:config:done": ({ injectTypes }) => {
           const stub = readFileSync(resolve("../assets/stubs/types.d.ts"), "utf-8");
-          const { collectionNames, collectionsUnion, enums, records, services } = stringifyTypes(collections, options);
+          const { collectionNames, enums, records, services } = stringifyTypes(collections, options);
           const content = stub
             .replaceAll("@@_COLLECTION_NAMES_@@", collectionNames)
-            .replace("@@_COLLECTIONS_UNION_@@", collectionsUnion)
             .replace("@@_ENUMS_@@", enums)
             .replace("@@_RECORDS_@@", records)
             .replace("@@_SERVICES_@@", services);
