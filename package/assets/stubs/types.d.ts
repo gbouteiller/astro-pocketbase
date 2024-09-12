@@ -36,6 +36,8 @@ declare module "pocketbase:astro" {
     expand?: E;
   };
 
+  export type RecordRef<C extends Collection> = {collection: C;id: string};
+
   /******* RECORDS *******/
   @@_RECORDS_@@
 
