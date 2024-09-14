@@ -1,5 +1,11 @@
 # astro-pocketbase
 
+## 0.5.2
+
+### Patch Changes
+
+- fc843fe: fix options schema
+
 ## 0.5.1
 
 ### Patch Changes
