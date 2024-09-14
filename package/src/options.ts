@@ -17,15 +17,35 @@ export const optionsSchema = z
   .object({
     cacheDuration: z.string().default(defaultOptions.cacheDuration),
     ignore: z.string().array().default(defaultOptions.ignore),
-    nameEnum: z.function().args(z.string()).returns(z.string()).default(defaultOptions.nameEnum),
-    nameEnumField: z.function().args(z.string(), z.string()).returns(z.string()).default(defaultOptions.nameEnumField),
-    nameEnumSchema: z.function().args(z.string()).returns(z.string()).default(defaultOptions.nameEnumSchema),
-    nameEnumType: z.function().args(z.string()).returns(z.string()).default(defaultOptions.nameEnumType),
-    nameEnumValues: z.function().args(z.string()).returns(z.string()).default(defaultOptions.nameEnumValues),
-    nameRecordSchema: z.function().args(z.string()).returns(z.string()).default(defaultOptions.nameRecordSchema),
-    nameRecordType: z.function().args(z.string()).returns(z.string()).default(defaultOptions.nameRecordType),
+    nameEnum: z
+      .function(z.tuple([z.string()]), z.string())
+      .optional()
+      .transform((f) => f ?? defaultOptions.nameEnum),
+    nameEnumField: z
+      .function(z.tuple([z.string(), z.string()]), z.string())
+      .optional()
+      .transform((f) => f ?? defaultOptions.nameEnumField),
+    nameEnumSchema: z
+      .function(z.tuple([z.string()]), z.string())
+      .optional()
+      .transform((f) => f ?? defaultOptions.nameEnumSchema),
+    nameEnumType: z
+      .function(z.tuple([z.string()]), z.string())
+      .optional()
+      .transform((f) => f ?? defaultOptions.nameEnumType),
+    nameEnumValues: z
+      .function(z.tuple([z.string()]), z.string())
+      .optional()
+      .transform((f) => f ?? defaultOptions.nameEnumValues),
+    nameRecordSchema: z
+      .function(z.tuple([z.string()]), z.string())
+      .optional()
+      .transform((f) => f ?? defaultOptions.nameRecordSchema),
+    nameRecordType: z
+      .function(z.tuple([z.string()]), z.string())
+      .optional()
+      .transform((f) => f ?? defaultOptions.nameRecordType),
   })
-  .optional()
   .default(defaultOptions);
 
 export type Options = z.infer<typeof optionsSchema>;

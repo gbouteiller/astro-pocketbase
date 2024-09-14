@@ -9,7 +9,7 @@ const { default: pocketbase } = await import("astro-pocketbase");
 export default defineConfig({
   integrations: [
     tailwind(),
-    pocketbase(),
+    pocketbase({}),
     hmrIntegration({
       directory: createResolver(import.meta.url).resolve("../package/dist"),
     }),
