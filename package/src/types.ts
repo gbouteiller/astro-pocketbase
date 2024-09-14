@@ -34,6 +34,7 @@ export function stringifyTypes(collections: CollectionModel[], options: Options)
   }
 
   function stringifyFieldSchema(field: SchemaField) {
+    const collectionName = getCollectionNameFromId(field.options.collectionId, collections);
     let type: string | undefined;
     if (field.type === "bool") type = "z.ZodBoolean";
     else if (field.type === "date") type = "z.ZodPipeline<z.ZodString, z.ZodDate>";
@@ -43,11 +44,11 @@ export function stringifyTypes(collections: CollectionModel[], options: Options)
     else if (field.type === "json") type = "Z.ZodAny";
     else if (field.type === "number") type = "z.ZodNumber";
     else if (field.type === "relation") {
-      const collection = getCollectionNameFromId(field.options.collectionId, collections);
-      const singular = `z.ZodEffects<z.ZodString, { collection: "${collection}"; id: string; }, string>`;
+      const singular = `z.ZodEffects<z.ZodString, { collection: "${collectionName}"; id: string; }, string>`;
       type = field.options.maxSelect === 1 ? singular : `z.ZodArray<${singular}, "many">`;
     } else if (field.type === "select") {
-      const enumSchema = options.nameEnumSchema(field.name);
+      // TODO: don't force collectionName as defined
+      const enumSchema = options.nameEnumSchema(options.nameEnumField(collectionName!, field.name));
       type = field.options.maxSelect === 1 ? enumSchema : `z.ZodArray<${enumSchema}, "many">`;
     } else if (field.type === "text") type = "z.ZodString";
     else if (field.type === "url") type = "z.ZodString";
