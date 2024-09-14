@@ -22,7 +22,7 @@ export const integration = defineIntegration({
         "astro:config:setup": async (params) => {
           const { addDevToolbarApp, addMiddleware, logger } = params;
 
-          const { data, error } = await fetchSortedCollections();
+          const { data, error } = await fetchSortedCollections(options.ignore);
           if (error) logger.error(error instanceof Error ? error.message : "unknown error");
           else collections = data;
 

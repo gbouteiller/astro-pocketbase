@@ -6,11 +6,17 @@ export function schemaField(name: string, type = "text"): SchemaField {
   return { id: "", name, options: {}, presentable: false, required: true, system: true, type };
 }
 
-export async function fetchSortedCollections(): Promise<{ data: CollectionModel[]; error: undefined } | { data: undefined; error: Error }> {
+export async function fetchSortedCollections(ignore: string[]): Promise<Result<CollectionModel[]>> {
   try {
     const pocketbase = await getPocketbase(process.env);
     const collections = await pocketbase.collections.getFullList();
-    return { data: sortBy(collections, ["name"]), error: undefined };
+    return {
+      data: sortBy(
+        collections.filter(({ name }) => !ignore.includes(name)),
+        ["name"],
+      ),
+      error: undefined,
+    };
   } catch (error) {
     return { data: undefined, error: error instanceof Error ? error : new Error("unknown error") };
   }
@@ -36,4 +42,5 @@ export function stringifyCollectionNames(collections: CollectionModel[]) {
   return `[${getCollectionNames(collections).join(", ")}]`;
 }
 
+export type Result<D> = { data: D; error: undefined } | { data: undefined; error: Error };
 export type SelectField = { name: string; values: string[] };
