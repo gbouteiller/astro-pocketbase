@@ -27,8 +27,8 @@ export function stringifyTypes(collections: CollectionModel[], options: Options)
       ["name"],
     );
     const fieldSchemas = fields.map((field) => stringifyFieldSchema(field, name));
-    const fieldInputs = fields.map((field) => stringifyFieldInput(field));
-    const fieldOutputs = fields.map((field) => stringifyFieldOutput(field));
+    const fieldInputs = fields.map((field) => stringifyFieldInput(field, name));
+    const fieldOutputs = fields.map((field) => stringifyFieldOutput(field, name));
 
     return `export const ${schemaName}: z.ZodObject<{\n\t\t${fieldSchemas.join(";\n\t\t")};\n\t},\n\t"strip",\n\tz.ZodTypeAny,\n\t{\n\t\t${fieldOutputs.join(";\n\t\t")};\n\t},\n\t{\n\t\t${fieldInputs.join(";\n\t\t")};\n\t}>;\n\texport type ${typeName} = z.infer<typeof ${schemaName}>;`;
   }
@@ -55,7 +55,7 @@ export function stringifyTypes(collections: CollectionModel[], options: Options)
     return `${field.name}: ${field.required ? type : `z.ZodOptional<${type}>`}`;
   }
 
-  function stringifyFieldInput(field: SchemaField) {
+  function stringifyFieldInput(field: SchemaField, collectionName: string) {
     let type: string | undefined;
     if (field.type === "bool") type = "boolean";
     else if (field.type === "date") type = "string";
@@ -65,21 +65,23 @@ export function stringifyTypes(collections: CollectionModel[], options: Options)
     else if (field.type === "json") type = "any";
     else if (field.type === "number") type = "number";
     else if (field.type === "relation") type = field.options.maxSelect === 1 ? "string" : "string[]";
-    else if (field.type === "select") type = field.options.maxSelect === 1 ? "string" : `string[]`;
-    else if (field.type === "text") type = "string";
+    else if (field.type === "select") {
+      const enumType = options.nameEnumType(options.nameEnumField(collectionName, field.name));
+      type = field.options.maxSelect === 1 ? enumType : `${enumType}[]`;
+    } else if (field.type === "text") type = "string";
     else if (field.type === "url") type = "string";
     // TODO: manage unknown field type
     return `${field.name}${field.required ? `: ${type}` : `?: ${type} | undefined`}`;
   }
 
-  function stringifyFieldOutput(field: SchemaField) {
+  function stringifyFieldOutput(field: SchemaField, collectionName: string) {
     let type: string | undefined;
     if (field.type === "date") type = "Date";
     else if (field.type === "relation") {
       const collection = getCollectionNameFromId(field.options.collectionId, collections);
       const singular = `{ collection: "${collection}"; id: string; }`;
       type = field.options.maxSelect === 1 ? singular : `${singular}[]`;
-    } else return stringifyFieldInput(field);
+    } else return stringifyFieldInput(field, collectionName);
     return `${field.name}${field.required ? `: ${type}` : `?: ${type} | undefined`}`;
   }
 
