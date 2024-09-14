@@ -26,15 +26,14 @@ export function stringifyTypes(collections: CollectionModel[], options: Options)
       ],
       ["name"],
     );
-    const fieldSchemas = fields.map(stringifyFieldSchema);
-    const fieldInputs = fields.map(stringifyFieldInput);
-    const fieldOutputs = fields.map(stringifyFieldOutput);
+    const fieldSchemas = fields.map((field) => stringifyFieldSchema(field, name));
+    const fieldInputs = fields.map((field) => stringifyFieldInput(field));
+    const fieldOutputs = fields.map((field) => stringifyFieldOutput(field));
 
     return `export const ${schemaName}: z.ZodObject<{\n\t\t${fieldSchemas.join(";\n\t\t")};\n\t},\n\t"strip",\n\tz.ZodTypeAny,\n\t{\n\t\t${fieldOutputs.join(";\n\t\t")};\n\t},\n\t{\n\t\t${fieldInputs.join(";\n\t\t")};\n\t}>;\n\texport type ${typeName} = z.infer<typeof ${schemaName}>;`;
   }
 
-  function stringifyFieldSchema(field: SchemaField) {
-    const collectionName = getCollectionNameFromId(field.options.collectionId, collections);
+  function stringifyFieldSchema(field: SchemaField, collectionName: string) {
     let type: string | undefined;
     if (field.type === "bool") type = "z.ZodBoolean";
     else if (field.type === "date") type = "z.ZodPipeline<z.ZodString, z.ZodDate>";
@@ -44,11 +43,11 @@ export function stringifyTypes(collections: CollectionModel[], options: Options)
     else if (field.type === "json") type = "Z.ZodAny";
     else if (field.type === "number") type = "z.ZodNumber";
     else if (field.type === "relation") {
-      const singular = `z.ZodEffects<z.ZodString, { collection: "${collectionName}"; id: string; }, string>`;
+      const referencedCollectionName = getCollectionNameFromId(field.options.collectionId, collections);
+      const singular = `z.ZodEffects<z.ZodString, { collection: "${referencedCollectionName}"; id: string; }, string>`;
       type = field.options.maxSelect === 1 ? singular : `z.ZodArray<${singular}, "many">`;
     } else if (field.type === "select") {
-      // TODO: don't force collectionName as defined
-      const enumSchema = options.nameEnumSchema(options.nameEnumField(collectionName!, field.name));
+      const enumSchema = options.nameEnumSchema(options.nameEnumField(collectionName, field.name));
       type = field.options.maxSelect === 1 ? enumSchema : `z.ZodArray<${enumSchema}, "many">`;
     } else if (field.type === "text") type = "z.ZodString";
     else if (field.type === "url") type = "z.ZodString";

@@ -13,11 +13,11 @@ export function stringifyContent(collections: CollectionModel[], options: Option
 
   function stringifyRecord({ name, schema }: CollectionModel) {
     const schemaName = options.nameRecordSchema(name);
-    const fields = sortBy(schema, ["name"]).map((field) => stringifyField(field));
+    const fields = sortBy(schema, ["name"]).map((field) => stringifyField(field, name));
     return `export const ${schemaName} = z.object({\n\t...RecordModel.omit({ expand: true }).shape,\n\t${fields.join(",\n\t")}\n});`;
   }
 
-  function stringifyField(field: SchemaField) {
+  function stringifyField(field: SchemaField, collectionName: string) {
     let schema: string | undefined;
     if (field.type === "bool") schema = stringifyBoolField(field);
     else if (field.type === "date") schema = stringifyDateField(field);
@@ -27,7 +27,7 @@ export function stringifyContent(collections: CollectionModel[], options: Option
     else if (field.type === "json") schema = stringifyJsonField(field);
     else if (field.type === "number") schema = stringifyNumberField(field);
     else if (field.type === "relation") schema = stringifyRelationField(field);
-    else if (field.type === "select") schema = stringifySelectField(field);
+    else if (field.type === "select") schema = stringifySelectField(field, collectionName);
     else if (field.type === "text") schema = stringifyTextField(field);
     else if (field.type === "url") schema = stringifyUrlField(field);
     // TODO: manage unknown field type
@@ -77,9 +77,9 @@ export function stringifyContent(collections: CollectionModel[], options: Option
     return `z.string().transform((id) => ({ collection: "${collection}", id }))${multiple}`;
   }
 
-  function stringifySelectField({ options: { maxSelect } }: SchemaField) {
+  function stringifySelectField({ name, options: { maxSelect } }: SchemaField, collectionName: string) {
     // TODO: implement values
-    return `z.string()${maxSelect === 1 ? "" : `.array().max(${maxSelect})`}`;
+    return `${options.nameEnumSchema(options.nameEnumField(collectionName, name))}${maxSelect === 1 ? "" : `.array().max(${maxSelect})`}`;
   }
 
   function stringifyTextField({ options: { max, min } }: SchemaField) {
