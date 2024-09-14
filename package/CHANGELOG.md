@@ -1,5 +1,11 @@
 # astro-pocketbase
 
+## 0.5.1
+
+### Patch Changes
+
+- 8dbbc6c: fix enum naming function used
+
 ## 0.5.0
 
 ### Minor Changes
