@@ -31,11 +31,11 @@ export function getCollectionNames(collections: CollectionModel[]) {
   return collections.map(({ name }) => `"${name}"`);
 }
 
-export function getCollectionSelectFields(collections: CollectionModel[], { nameEnum }: Options) {
+export function getCollectionSelectFields(collections: CollectionModel[], { nameEnumField }: Options) {
   return collections.flatMap((collection) =>
     collection.schema
       .filter((field) => field.type === "select")
-      .map((field) => ({ name: nameEnum(collection.name, field.name), values: (field.options.values ?? []) as string[] })),
+      .map((field) => ({ name: nameEnumField(collection.name, field.name), values: (field.options.values ?? []) as string[] })),
   );
 }
 
