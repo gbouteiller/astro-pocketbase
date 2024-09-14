@@ -12,8 +12,8 @@ declare module "pocketbase:astro" {
 
   /******* ENUMS *******/
   export const collectionValues: readonly @@_COLLECTION_NAMES_@@;
-  export const Collection: z.ZodEnum<@@_COLLECTION_NAMES_@@>;
-  export const COLLECTION: z.Values<@@_COLLECTION_NAMES_@@>;
+  export const Collection: z.ZodEnum<typeof collectionValues>;
+  export const COLLECTION: z.Values<typeof collectionValues>;
   export type Collection = z.infer<typeof Collection>;
   
   @@_ENUMS_@@
@@ -36,7 +36,7 @@ declare module "pocketbase:astro" {
     expand?: E;
   };
 
-  export type RecordRef<C extends Collection> = {collection: C;id: string};
+  export type RecordRef<C extends Collection = Collection> = {collection: C; id: string};
 
   /******* RECORDS *******/
   @@_RECORDS_@@

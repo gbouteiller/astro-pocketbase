@@ -1,15 +1,15 @@
-import { pascalCase, snakeCase, sortBy } from "es-toolkit";
+import { sortBy } from "es-toolkit";
 import type { CollectionModel, SchemaField } from "pocketbase";
 import type { Options } from "./options.ts";
 import { getCollectionNameFromId, getCollectionSelectFields, schemaField, stringifyCollectionNames, type SelectField } from "./utils.ts";
 
 export function stringifyTypes(collections: CollectionModel[], options: Options) {
   function stringifyEnum({ name, values }: SelectField) {
-    const valuesName = `${name}Values`;
-    const enumSchemaName = pascalCase(name);
-    const enumName = snakeCase(name).toUpperCase();
-    const valuesContent = `[${values.map((value) => `"${value}"`).join(", ")}]`;
-    return `export const ${valuesName}: readonly ${valuesContent};\n\texport const ${enumSchemaName}: z.ZodEnum<${valuesContent}>;\n\texport const ${enumName}: z.Values<${valuesContent}>;`;
+    const valuesName = options.nameEnumValues(name);
+    const schemaName = options.nameEnumSchema(name);
+    const typeName = options.nameEnumType(name);
+    const enumName = options.nameEnum(name);
+    return `export const ${valuesName}: readonly [${values.map((value) => `"${value}"`).join(", ")}];\n\texport const ${schemaName}: z.ZodEnum<typeof ${valuesName}>;\n\texport const ${enumName}: z.Values<typeof ${valuesName}>;\n\texport type ${typeName} = z.infer<typeof ${schemaName}>;`;
   }
 
   function stringifyRecord({ name, schema }: CollectionModel) {
@@ -46,8 +46,10 @@ export function stringifyTypes(collections: CollectionModel[], options: Options)
       const collection = getCollectionNameFromId(field.options.collectionId, collections);
       const singular = `z.ZodEffects<z.ZodString, { collection: "${collection}"; id: string; }, string>`;
       type = field.options.maxSelect === 1 ? singular : `z.ZodArray<${singular}, "many">`;
-    } else if (field.type === "select") type = field.options.maxSelect === 1 ? "z.ZodString" : `z.ZodArray<z.ZodString, "many">`;
-    else if (field.type === "text") type = "z.ZodString";
+    } else if (field.type === "select") {
+      const enumSchema = options.nameEnumSchema(field.name);
+      type = field.options.maxSelect === 1 ? enumSchema : `z.ZodArray<${enumSchema}, "many">`;
+    } else if (field.type === "text") type = "z.ZodString";
     else if (field.type === "url") type = "z.ZodString";
     // TODO: manage unknown field type
     return `${field.name}: ${field.required ? type : `z.ZodOptional<${type}>`}`;
@@ -63,7 +65,7 @@ export function stringifyTypes(collections: CollectionModel[], options: Options)
     else if (field.type === "json") type = "any";
     else if (field.type === "number") type = "number";
     else if (field.type === "relation") type = field.options.maxSelect === 1 ? "string" : "string[]";
-    else if (field.type === "select") type = field.options.maxSelect === 1 ? "z.ZodString" : `z.ZodArray<z.ZodString, "many">`;
+    else if (field.type === "select") type = field.options.maxSelect === 1 ? "string" : `string[]`;
     else if (field.type === "text") type = "string";
     else if (field.type === "url") type = "string";
     // TODO: manage unknown field type
@@ -87,7 +89,7 @@ export function stringifyTypes(collections: CollectionModel[], options: Options)
 
   return {
     collectionNames: stringifyCollectionNames(collections),
-    enums: getCollectionSelectFields(collections).map(stringifyEnum).join("\n\n\t"),
+    enums: getCollectionSelectFields(collections, options).map(stringifyEnum).join("\n\n\t"),
     records: `${collections.map(stringifyRecord).join("\n\n\t")}`,
     services: collections.map(stringifyService).join("\n"),
   };

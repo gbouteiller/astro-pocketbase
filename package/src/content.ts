@@ -1,14 +1,14 @@
-import { pascalCase, snakeCase, sortBy } from "es-toolkit";
+import { sortBy } from "es-toolkit";
 import type { CollectionModel, SchemaField } from "pocketbase";
 import type { Options } from "./options.ts";
 import { getCollectionNameFromId, getCollectionSelectFields, stringifyCollectionNames, type SelectField } from "./utils.ts";
 
 export function stringifyContent(collections: CollectionModel[], options: Options) {
   function stringifyEnum({ name, values }: SelectField) {
-    const valuesName = `${name}Values`;
-    const enumSchemaName = pascalCase(name);
-    const enumName = snakeCase(name).toUpperCase();
-    return `export const ${valuesName} = [\n\t${values.map((value) => `"${value}"`).join(",\n\t")},\n];\nexport const ${enumSchemaName} = z.enum(${valuesName});\nexport const ${enumName} = ${enumSchemaName}.enum;`;
+    const valuesName = options.nameEnumValues(name);
+    const schemaName = options.nameEnumSchema(name);
+    const enumName = options.nameEnum(name);
+    return `export const ${valuesName} = [\n\t${values.map((value) => `"${value}"`).join(",\n\t")},\n];\nexport const ${schemaName} = z.enum(${valuesName});\nexport const ${enumName} = ${schemaName}.enum;`;
   }
 
   function stringifyRecord({ name, schema }: CollectionModel) {
@@ -98,7 +98,7 @@ export function stringifyContent(collections: CollectionModel[], options: Option
 
   return {
     collectionNames: stringifyCollectionNames(collections),
-    enums: getCollectionSelectFields(collections).map(stringifyEnum).join("\n\n"),
+    enums: getCollectionSelectFields(collections, options).map(stringifyEnum).join("\n\n"),
     records: `${collections.map(stringifyRecord).join("\n\n")}\n\nexport const records = new Map([\n\t${collections.map(stringifySchemasEntry).join(",\n\t")},\n]);`,
   };
 }

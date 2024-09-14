@@ -1,6 +1,7 @@
-import { pascalCase, sortBy } from "es-toolkit";
+import { sortBy } from "es-toolkit";
 import type { CollectionModel, SchemaField } from "pocketbase";
 import { getPocketbase } from "./client.js";
+import type { Options } from "./options.ts";
 
 export function schemaField(name: string, type = "text"): SchemaField {
   return { id: "", name, options: {}, presentable: false, required: true, system: true, type };
@@ -30,11 +31,11 @@ export function getCollectionNames(collections: CollectionModel[]) {
   return collections.map(({ name }) => `"${name}"`);
 }
 
-export function getCollectionSelectFields(collections: CollectionModel[]) {
+export function getCollectionSelectFields(collections: CollectionModel[], { nameEnum }: Options) {
   return collections.flatMap((collection) =>
     collection.schema
       .filter((field) => field.type === "select")
-      .map((field) => ({ name: `${collection.name}${pascalCase(field.name)}`, values: (field.options.values ?? []) as string[] })),
+      .map((field) => ({ name: nameEnum(collection.name, field.name), values: (field.options.values ?? []) as string[] })),
   );
 }
 
