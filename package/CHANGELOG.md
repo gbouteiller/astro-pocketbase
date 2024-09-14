@@ -1,5 +1,11 @@
 # astro-pocketbase
 
+## 0.5.3
+
+### Patch Changes
+
+- 88e1af6: fix enum property name
+
 ## 0.5.2
 
 ### Patch Changes
