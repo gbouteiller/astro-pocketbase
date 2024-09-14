@@ -1,5 +1,11 @@
 # astro-pocketbase
 
+## 0.5.0
+
+### Minor Changes
+
+- fba429f: add naming enum options
+
 ## 0.4.0
 
 ### Minor Changes
