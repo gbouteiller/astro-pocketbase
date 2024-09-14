@@ -40,6 +40,13 @@ Here are a few more values you can use:
 - `cacheDuration: "*"` will *never* fetch new data (after the first success).
 - `cacheDuration: "0s"` will *always* fetch new data.
 
+## ignore
+
+- **Type:** `string[]`
+- **Default:** `[]`
+
+The `ignore` option allows you to ignore specific collections from being processed.
+
 ## nameRecordSchema
 
 - **Type:** `(collectionName: string) => string`
