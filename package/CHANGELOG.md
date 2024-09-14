@@ -1,5 +1,12 @@
 # astro-pocketbase
 
+## 0.5.4
+
+### Patch Changes
+
+- f72ee99: refine select field schema with enum
+- f72ee99: pass collection name to stringigyFieldSchema
+
 ## 0.5.3
 
 ### Patch Changes
