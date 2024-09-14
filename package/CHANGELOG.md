@@ -1,5 +1,11 @@
 # astro-pocketbase
 
+## 0.5.5
+
+### Patch Changes
+
+- 98693e2: fix enum type
+
 ## 0.5.4
 
 ### Patch Changes
