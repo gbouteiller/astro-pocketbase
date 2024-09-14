@@ -47,6 +47,31 @@ Here are a few more values you can use:
 
 The `ignore` option allows you to ignore specific collections from being processed.
 
+## nameEnum
+
+- **Type:** `(enumFieldName: string) => string`
+- **Default:** `(enumFieldName) => snakeCase(enumFieldName).toUpperCase()`
+
+## nameEnumField
+
+- **Type:** `(collectionName: string, fieldName: string) => string`
+- **Default:** `(collectionName, fieldName) => collectionName + pascalName(fieldName)`
+
+## nameEnumSchema
+
+- **Type:** `(enumFieldName: string) => string`
+- **Default:** `(enumFieldName) => pascalName(enumFieldName)`
+
+## nameEnumType
+
+- **Type:** `(enumFieldName: string) => string`
+- **Default:** `(enumFieldName) => pascalName(enumFieldName)`
+  
+## nameEnumValues
+
+- **Type:** `(enumFieldName: string) => string`
+- **Default:** `(enumFieldName) => enumFieldName + "Values"`
+
 ## nameRecordSchema
 
 - **Type:** `(collectionName: string) => string`
