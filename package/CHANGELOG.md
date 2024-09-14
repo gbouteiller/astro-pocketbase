@@ -1,5 +1,11 @@
 # astro-pocketbase
 
+## 0.4.0
+
+### Minor Changes
+
+- cee8216: add ignore option
+
 ## 0.3.1
 
 ### Patch Changes
