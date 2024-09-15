@@ -74,7 +74,7 @@ export function stringifyContent(collections: CollectionModel[], options: Option
     const min = minSelect ? `.min(${minSelect})` : "";
     const max = maxSelect ? `.max(${maxSelect})` : "";
     const multiple = maxSelect === 1 ? "" : `.array()${min}${max}`;
-    return `z.string().transform((id) => ({ collection: "${collection}", id }))${multiple}`;
+    return `z.string().transform((id) => { return id !== "" ? { collection: "${collection}", id } : undefined })${multiple}`;
   }
 
   function stringifySelectField({ name, options: { maxSelect } }: SchemaField, collectionName: string) {
