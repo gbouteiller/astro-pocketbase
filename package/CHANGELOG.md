@@ -1,5 +1,11 @@
 # astro-pocketbase
 
+## 0.5.6
+
+### Patch Changes
+
+- 5e7a9ef: Fix empty relation case
+
 ## 0.5.5
 
 ### Patch Changes

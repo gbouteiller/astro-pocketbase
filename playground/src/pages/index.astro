@@ -1,10 +1,13 @@
 ---
 import { getEntry } from "astro:content";
 import Layout from "../layouts/main.astro";
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("posts").then((posts) => posts.map((post) => console.log(post.data.image)));
 
 const record1 = await getEntry("config", "fedcba987654321");
 const record2 = await Astro.locals.pocketbase.collection("config").getOne("fedcba987654321");
-console.log(record1, record2);
+// console.log(record1, record2);
 ---
 
 <Layout title="Welcome to Astro.">
