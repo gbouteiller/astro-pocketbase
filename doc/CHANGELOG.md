@@ -1,5 +1,11 @@
 # doc
 
+## 0.2.0
+
+### Minor Changes
+
+- c1027d0: add cacheDir option for fetching
+
 ## 0.1.0
 
 ### Minor Changes

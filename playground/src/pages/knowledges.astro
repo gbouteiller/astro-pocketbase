@@ -3,9 +3,9 @@ import { getEntry } from "astro:content";
 import Layout from "../layouts/main.astro";
 import { getCollection } from "astro:content";
 
-const posts = await getCollection("posts");
+const knowledges = await getCollection("knowledges");
 ---
 
 <Layout title="Welcome to Astro.">
-  {posts.map(({ data }) => <p>{data.title}</p>)}
+  {knowledges.map(({ data }) => <p>{data.name}</p>)}
 </Layout>
