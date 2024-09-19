@@ -19,6 +19,11 @@ export default defineConfig({
 });
 ```
 
+## cacheDir
+
+- **Type:** `string`
+- **Default:** `.astro-pocketbase`
+
 ## cacheDuration
 
 - **Type:** `string`

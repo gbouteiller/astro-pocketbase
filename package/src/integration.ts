@@ -29,6 +29,7 @@ export const integration = defineIntegration({
           const stub = readFileSync(resolve("../assets/stubs/index.js"), "utf-8");
           const { collectionNames, enums, records } = stringifyContent(collections, options);
           const content = stub
+            .replace("@@_CACHE_DIR_@@", options.cacheDir)
             .replace("@@_CACHE_DURATION_@@", options.cacheDuration)
             .replace("@@_COLLECTION_NAMES_@@", collectionNames)
             .replace("@@_ENUMS_@@", enums)

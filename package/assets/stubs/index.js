@@ -53,6 +53,7 @@ export function pocketbaseLoader({ collection }) {
         });
 
         const { items } = await eFetch(`${PUBLIC_ASTRO_POCKETBASE_URL}/api/collections/${collection}/records?perPage=200`, {
+          directory: "@@_CACHE_DIR_@@",
           duration: "@@_CACHE_DURATION_@@",
 					dryRun: PROD,
           type: "json",

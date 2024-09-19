@@ -12,18 +12,18 @@
   },
   "dependencies": {
     "@11ty/eleventy-fetch": "^4.0.1",
-    "@astrojs/tailwind": "^5.1.0",
-    "astro": "5.0.0-alpha.6",
+    "@astrojs/tailwind": "^5.1.1",
+    "astro": "5.0.0-beta.1",
     "astro-integration-kit": "^0.16.1",
     "astro-pocketbase": "workspace:*",
     "daisyui": "^4.12.10",
     "pocketbase": "^0.21.5",
-    "tailwindcss": "^3.4.10",
-    "vite": "^5.4.3"
+    "tailwindcss": "^3.4.12",
+    "vite": "^5.4.6"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.3",
-    "@types/node": "^22.5.4",
+    "@types/node": "^22.5.5",
     "typescript": "^5.6.2"
   }
 }

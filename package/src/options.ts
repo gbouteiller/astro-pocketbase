@@ -2,6 +2,7 @@ import { z } from "astro/zod";
 import { pascalCase, snakeCase } from "es-toolkit";
 
 const defaultOptions = {
+  cacheDir: ".astro-pocketbase",
   cacheDuration: "1d",
   ignore: [],
   nameEnum: (name: string) => snakeCase(name).toUpperCase(),
@@ -15,6 +16,7 @@ const defaultOptions = {
 
 export const optionsSchema = z
   .object({
+    cacheDir: z.string().default(defaultOptions.cacheDir),
     cacheDuration: z.string().default(defaultOptions.cacheDuration),
     ignore: z.string().array().default(defaultOptions.ignore),
     nameEnum: z

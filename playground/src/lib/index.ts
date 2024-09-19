@@ -24,6 +24,7 @@ export function pocketbaseLoader({ collection }: { collection: "config" | "image
         const { items } = await eFetch(`${PUBLIC_ASTRO_POCKETBASE_URL}/api/collections/${collection}/records?perPage=200`, {
           duration: "1d",
           dryRun: import.meta.env.PROD,
+          directory: ".astro-pocketbase",
           type: "json",
           fetchOptions: {
             headers: { Authorization: token },
