@@ -6,7 +6,8 @@ export default defineToolbarApp({
 
     // const button = document.querySelector("astro-dev-toolbar")?.shadowRoot.querySelector("button[data-app-id='astro-pocketbase']");
 
-    app.onToggled(() => {
+    app.onToggled(({ state }) => {
+      if (!state) return;
       app.toggleNotification({ level: "error", state: true });
       if (pending) return;
       pending = true;
