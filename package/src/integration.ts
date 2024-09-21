@@ -1,6 +1,6 @@
 import { addVirtualImports, createResolver, defineIntegration } from "astro-integration-kit";
 import dotenv from "dotenv";
-import { readFileSync, rmSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import type { CollectionModel } from "pocketbase";
 import { stringifyContent } from "./content.js";
 import { optionsSchema } from "./options.js";
@@ -29,8 +29,6 @@ export const integration = defineIntegration({
           const stub = readFileSync(resolve("../assets/stubs/index.js"), "utf-8");
           const { collectionNames, enums, records } = stringifyContent(collections, options);
           const content = stub
-            .replace("@@_CACHE_DIR_@@", options.cacheDir)
-            .replace("@@_CACHE_DURATION_@@", options.cacheDuration)
             .replace("@@_COLLECTION_NAMES_@@", collectionNames)
             .replace("@@_ENUMS_@@", enums)
             .replace("@@_RECORDS_@@", records);
@@ -63,8 +61,8 @@ export const integration = defineIntegration({
         //@ts-ignore
         "astro:server:setup": ({ refreshContent, toolbar }) => {
           toolbar.on("astro-pocketbase:refresh", async () => {
-            rmSync("./.cache", { recursive: true, force: true });
-            await refreshContent({ loaders: ["pocketbase-loader"] });
+            if (!refreshContent) console.warn("Content can only be refreshed in Astro v5.0.0 or higher");
+            await refreshContent?.({ loaders: ["pocketbase-loader"] });
           });
         },
       },

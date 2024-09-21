@@ -1,4 +1,4 @@
-import eFetch from "@11ty/eleventy-fetch";
+import PocketBase from "pocketbase";
 import { z } from 'astro:content';
 
 /******* ENUMS *******/
@@ -32,43 +32,46 @@ export const RecordModel = z.object({
 @@_RECORDS_@@
 
 /******* LOADER *******/
+let pocketbase;
+let auth;
+let isAuthenticating = false;
+
 export function pocketbaseLoader({ collection }) {
 	return {
 		name: "pocketbase-loader",
-		load: async ({ store, logger, parseData, generateDigest }) => {
+		load: async ({ store, logger, meta, parseData }) => {
       const { ASTRO_POCKETBASE_ADMIN_EMAIL, ASTRO_POCKETBASE_ADMIN_PASSWORD, PROD, PUBLIC_ASTRO_POCKETBASE_URL } = import.meta.env;
       if (!ASTRO_POCKETBASE_ADMIN_EMAIL || !ASTRO_POCKETBASE_ADMIN_PASSWORD || !PUBLIC_ASTRO_POCKETBASE_URL)
-        return logger.error("undefined env variables");
+        return logger.error("Environment variables not set");
+
+      logger.info(`Loading ${collection}`);
+
+      if (!pocketbase) pocketbase = new PocketBase(PUBLIC_ASTRO_POCKETBASE_URL);
 
       try {
-        const { token } = await eFetch(`${PUBLIC_ASTRO_POCKETBASE_URL}/api/admins/auth-with-password`, {
-          duration: "0s",
-          dryRun: true,
-          type: "json",
-          fetchOptions: {
-            body: JSON.stringify({ identity: ASTRO_POCKETBASE_ADMIN_EMAIL, password: ASTRO_POCKETBASE_ADMIN_PASSWORD }),
-            method: "post",
-            headers: { "Content-Type": "application/json" },
-          },
-        });
-
-        const { items } = await eFetch(`${PUBLIC_ASTRO_POCKETBASE_URL}/api/collections/${collection}/records?perPage=200`, {
-          directory: "@@_CACHE_DIR_@@",
-          duration: "@@_CACHE_DURATION_@@",
-					dryRun: PROD,
-          type: "json",
-          fetchOptions: {
-            headers: { Authorization: token },
-          },
-        });
-
-        store.clear();
-
-        for (const { id, ...rest } of items) {
-          const data = await parseData({ id, data: { id, ...rest } });
-          const digest = generateDigest(data);
-          store.set({ data, digest, id });
+        if (!isAuthenticating && !pocketbase.authStore.isValid) {
+          isAuthenticating = true;
+          auth = pocketbase.admins.authWithPassword(ASTRO_POCKETBASE_ADMIN_EMAIL, ASTRO_POCKETBASE_ADMIN_PASSWORD);
         }
+        await auth;
+
+        const lastUpdatedItems = await pocketbase
+          .collection(collection)
+          .getList(1, 1, { fields: "updated", skipTotal: true, sort: "updated", order: "desc" });
+        const lastUpdated = lastUpdatedItems.items[0]?.updated;
+
+        if (lastUpdated !== meta.get("last-updated")) {
+          logger.info(`Refreshing ${collection}`);
+
+          meta.set("last-updated", lastUpdated);
+          const items = await pocketbase.collection(collection).getFullList();
+          for (const { id, updated, ...rest } of items) {
+            const data = await parseData({ id, data: { id, updated, ...rest } });
+            store.set({ data, digest: updated, id });
+          }
+        }
+
+        logger.info(`Loaded ${collection}`);
       } catch (error) {
         logger.error(`Error fetching ${collection}: ${error}`);
         return;

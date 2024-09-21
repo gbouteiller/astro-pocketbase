@@ -1,6 +1,6 @@
 import { defineCollection } from "astro:content";
-import { ConfigModel, ImagesModel, KnowledgesModel, PostsModel } from "pocketbase:astro";
-import { pocketbaseLoader } from "../lib";
+import { pocketbaseLoader, ConfigModel, ImagesModel, KnowledgesModel, PostsModel } from "pocketbase:astro";
+// import { pocketbaseLoader } from "../lib";
 
 const config = defineCollection({
   loader: pocketbaseLoader({ collection: "config" }),

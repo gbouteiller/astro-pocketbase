@@ -19,32 +19,6 @@ export default defineConfig({
 });
 ```
 
-## cacheDir
-
-- **Type:** `string`
-- **Default:** `.astro-pocketbase`
-
-## cacheDuration
-
-- **Type:** `string`
-- **Default:** `1d`
-
-After this amount of time has passed, we’ll make a new network request to the URL to fetch fresh data.
-
-The `cacheDuration` option supports the following shorthand values:
-
-- `s` is seconds (e.g. `cacheDuration: "43s"`)
-- `m` is minutes (e.g. `cacheDuration: "2m"`)
-- `h` is hours (e.g. `cacheDuration: "99h"`)
-- `d` is days (the default is `cacheDuration: "1d"`)
-- `w` is weeks, or shorthand for 7 days (e.g. `cacheDuration: "2w"` is 14 days)
-- `y` is years, or shorthand for 365 days (not exactly one year) (e.g. `cacheDuration: "2y"` is 730 days)
-
-Here are a few more values you can use:
-
-- `cacheDuration: "*"` will *never* fetch new data (after the first success).
-- `cacheDuration: "0s"` will *always* fetch new data.
-
 ## ignore
 
 - **Type:** `string[]`
