@@ -54,9 +54,9 @@ The `ignore` option allows you to ignore specific collections from being process
 ## nameRecordSchema
 
 - **Type:** `(collectionName: string) => string`
-- **Default:** `(collectionName) => pascalName(collectionName) + "Model"`
+- **Default:** `(collectionName) => pascalName(collectionName) + "Record"`
 
 ## nameRecordType
 
 - **Type:** `(collectionName: string) => string`
-- **Default:** `(collectionName) => pascalName(collectionName) + "Model"`
+- **Default:** `(collectionName) => pascalName(collectionName) + "Record"`

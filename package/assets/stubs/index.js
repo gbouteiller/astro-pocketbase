@@ -1,5 +1,5 @@
 import PocketBase from "pocketbase";
-import { z } from 'astro:content';
+import { getCollection, getEntries, getEntry, z } from "astro:content";
 
 /******* ENUMS *******/
 export const collectionValues = @@_COLLECTION_NAMES_@@;
@@ -79,4 +79,27 @@ export function pocketbaseLoader({ collection }) {
 		},
     schema: records.get(collection),
 	};
+}
+
+/******* HELPERS *******/
+export async function getRecord(ref, transform = (record) => record) {
+  const entries =
+    "id" in ref
+      ? [await getEntry(ref)]
+      : await getCollection(ref.collection, ({ data }) => ("slug" in data ? data.slug === ref.slug : false));
+  return transform(entries[0]?.data);
+}
+
+export async function getRecordOrThrow(ref, transform = (record) => record) {
+  const entry = await getRecord(ref);
+  if (!entry) throw new Error(`Record not found: ${JSON.stringify(ref)}`);
+  return transform(entry);
+}
+
+export async function getRecords(collectionOrRefs, options = {}) {
+  const { filter = () => true, map = (record) => record } = options;
+  const entries = await (typeof collectionOrRefs === "string"
+    ? getCollection(collectionOrRefs, ({ data }) => filter(data))
+    : getEntries(collectionOrRefs));
+  return Promise.all(entries.map(({ data }) => map(data)));
 }

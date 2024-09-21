@@ -8,8 +8,8 @@ const defaultOptions = {
   nameEnumSchema: (name: string) => pascalCase(name),
   nameEnumType: (name: string) => pascalCase(name),
   nameEnumValues: (name: string) => `${name}Values`,
-  nameRecordSchema: (name: string) => `${pascalCase(name)}Model`,
-  nameRecordType: (name: string) => `${pascalCase(name)}Model`,
+  nameRecordSchema: (name: string) => `${pascalCase(name)}Record`,
+  nameRecordType: (name: string) => `${pascalCase(name)}Record`,
 };
 
 export const optionsSchema = z
