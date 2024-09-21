@@ -1,5 +1,11 @@
 # astro-pocketbase
 
+## 0.6.1
+
+### Patch Changes
+
+- a981658: fix toolbar app that was called during routing with ClientRouter
+
 ## 0.6.0
 
 ### Minor Changes
