@@ -1,5 +1,15 @@
 # astro-pocketbase
 
+## 0.8.0
+
+### Minor Changes
+
+- 0c3e99c: add type and function helpers
+
+### Patch Changes
+
+- 0c3e99c: change default naming from Model to Record as pocketbase calls it
+
 ## 0.7.0
 
 ### Minor Changes

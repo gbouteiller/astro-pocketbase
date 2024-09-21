@@ -1,5 +1,11 @@
 # doc
 
+## 0.3.1
+
+### Patch Changes
+
+- 0c3e99c: change default naming from Model to Record as pocketbase calls it
+
 ## 0.3.0
 
 ### Minor Changes
