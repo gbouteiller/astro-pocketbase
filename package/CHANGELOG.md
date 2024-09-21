@@ -1,5 +1,15 @@
 # astro-pocketbase
 
+## 0.7.0
+
+### Minor Changes
+
+- 23c9e7f: remove eleventy fetch in favoi of pocketbase sdk and refine the way content is updated
+
+### Patch Changes
+
+- 23c9e7f: secure toolbar app use in astro v4
+
 ## 0.6.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # doc
 
+## 0.3.0
+
+### Minor Changes
+
+- 23c9e7f: remove eleventy fetch in favoi of pocketbase sdk and refine the way content is updated
+
 ## 0.2.0
 
 ### Minor Changes
