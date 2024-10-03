@@ -8,7 +8,7 @@ export default defineConfig({
     starlight({
       title: "Astro Pocketbase",
       social: {
-        github: "https://github.com/withastro/starlight",
+        github: "https://github.com/gbouteiller/astro-pocketbase",
       },
       sidebar: [
         {
