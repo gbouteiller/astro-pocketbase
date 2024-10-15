@@ -1,5 +1,12 @@
 # astro-pocketbase
 
+## 0.9.0
+
+### Minor Changes
+
+- remove magic "pocketbase:astro" and generate schemas and loader directly in "src/lib/pocketbase"
+- refactor with zod-pocketbase
+
 ## 0.8.0
 
 ### Minor Changes
