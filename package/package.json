@@ -37,15 +37,18 @@
   "type": "module",
   "peerDependencies": {
     "astro": "^4.15.1",
-    "pocketbase": "^0.21.5"
+    "pocketbase": "^0.21.5",
+    "zod": "^3.23.8"
   },
   "dependencies": {
     "astro-integration-kit": "^0.16.1",
     "dotenv": "^16.4.5",
-    "es-toolkit": "^1.20.0"
+    "es-toolkit": "^1.25.1",
+    "zod-pocketbase": "^0.3.4"
   },
   "devDependencies": {
     "pocketbase": "^0.21.5",
-    "tsup": "^8.3.0"
+    "tsup": "^8.3.0",
+    "zod": "^3.23.8"
   }
 }
