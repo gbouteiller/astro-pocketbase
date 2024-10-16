@@ -1,5 +1,5 @@
 ---
-title: Configuration Reference
+title: Options
 description: Astro Pocketbase gives you options
 ---
 

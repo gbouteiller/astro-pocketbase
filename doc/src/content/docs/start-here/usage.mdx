@@ -1,0 +1,32 @@
+---
+title: Usage
+description: How to use the Astro PocketBase integration.
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+## Configuration
+
+You can configure your integration in your `astro.config.mjs`. It allows you:
+- to specify the naming of the generated schemas, types and enums from your collections
+- to ignore some collections from being processed
+
+```js title="astro.config.mjs"
+export default defineConfig({
+  // ...
+  integrations: [pocketbase({
+    // default values
+    ignore: [],
+    nameEnum: (name: string) => snakeCase(name).toUpperCase(),
+    nameEnumField: (collectionName: string, fieldName: string) => `${collectionName}${pascalCase(fieldName)}`,
+    nameEnumSchema: (name: string) => pascalCase(name),
+    nameEnumType: (name: string) => pascalCase(name),
+    nameEnumValues: (name: string) => `${name}Values`,
+    nameRecordSchema: (name: string) => `${pascalCase(name)}Record`,
+    nameRecordType: (name: string) => `${pascalCase(name)}Record`,
+  })],
+});
+```
+
+:::tip[Options]
+For more details, see the reference [here](/reference/options).
+:::

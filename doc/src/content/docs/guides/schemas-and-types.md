@@ -28,15 +28,15 @@ interface RecordModel extends BaseModel {
 
 ## Generated types
 
-Zod schemas and types are generated for you and available for each collection in `pocketbase:astro`:
+Zod schemas and types are generated for you and available for each collection in `./src/lib/pocketbase/schemas`:
 
 ```ts
-import {PostsRecord} from "pocketbase:astro";
+import { PostsRecord } from "./src/lib/pocketbase/schemas";
 ```
 
 The default naming is based on the [PocketBase SDK](https://github.com/pocketbase/js-sdk) convention; so for a collection named `posts`
 you will be given access to a `PostsRecord` schema and a `PostsRecord` type.
 
 :::tip
-You can customize the way your collection schemas and types are named by using the dedicated [integration options](/reference/configuration): `nameRecordSchema` and `nameRecordType`
+You can customize the way your collection schemas and types are named by using the dedicated [integration options](/reference/options): `nameRecordSchema` and `nameRecordType`
 :::

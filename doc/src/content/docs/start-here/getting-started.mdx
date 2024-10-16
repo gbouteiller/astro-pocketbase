@@ -1,10 +1,13 @@
 ---
 title: Getting started
-description: This integration ease the use of PocketBase in your Astro projects.
+description: How to automatically setup the Astro PocketBase integration.
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-This integration ease the use of PocketBase in your Astro projects.
+This integration is built on top of [Zod PocketBase](https://zod-pocketbase.vercel.app) to ease the use of **PocketBase** in your **Astro** projects by:
+- generating **schemas** for your selected collections
+- generating a **loader** that you can use for your content collections
+- generating a **middleware** that gives you access to the [PocketBase SDK](https://github.com/pocketbase/js-sdk) in `Astro.locals`
 
 ## Installation
 
