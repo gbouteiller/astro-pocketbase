@@ -8,7 +8,7 @@ dotenv.config();
 
 export const integration = defineIntegration({
   name: "astro-pocketbase",
-  optionsSchema: Config.omit({ output: true }),
+  optionsSchema: Config.omit({ adminEmail: true, adminPassword: true, output: true, url: true }),
   setup({ options }) {
     const { resolve } = createResolver(import.meta.url);
 
