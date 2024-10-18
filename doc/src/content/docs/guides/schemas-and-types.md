@@ -3,7 +3,7 @@ title: Schemas and Types
 description: Astro PocketBase generates schemas and types for your collections
 ---
 
-Astro Pocketbase generates schemas and types for your collections
+Astro PocketBase generates schemas and types for your collections
 
 ## Generic type
 

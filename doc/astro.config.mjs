@@ -6,7 +6,7 @@ import { defineConfig } from "astro/config";
 export default defineConfig({
   integrations: [
     starlight({
-      title: "Astro Pocketbase",
+      title: "Astro PocketBase",
       social: {
         github: "https://github.com/gbouteiller/astro-pocketbase",
       },

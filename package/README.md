@@ -1,6 +1,6 @@
 # `astro-pocketbase`
 
-This is an [Astro integration](https://docs.astro.build/en/guides/integrations-guide/) that ease the use of Pocketbase in your Astro projects
+This is an [Astro integration](https://docs.astro.build/en/guides/integrations-guide/) that ease the use of PocketBase in your Astro projects
 
 ## Usage
 

@@ -1,6 +1,6 @@
 ---
 title: Options
-description: Astro Pocketbase gives you options
+description: Astro PocketBase gives you options
 ---
 
 The following reference covers all supported configuration options for Astro PocketBase.
