@@ -25,6 +25,7 @@ export default defineConfig({
             { label: "Schemas and Types", slug: "guides/schemas-and-types" },
             { label: "Middleware", slug: "guides/middleware" },
             { label: "Loader", slug: "guides/loader" },
+            { label: "Zod PocketBase", slug: "guides/zod-pocketbase" },
           ],
         },
         {

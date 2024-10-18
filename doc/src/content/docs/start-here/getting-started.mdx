@@ -3,6 +3,7 @@ title: Getting started
 description: How to automatically setup the Astro PocketBase integration.
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Steps } from '@astrojs/starlight/components';
 
 This integration is built on top of [Zod PocketBase](https://zod-pocketbase.vercel.app) to ease the use of **PocketBase** in your **Astro** projects by:
 - generating **schemas** for your selected collections
@@ -13,36 +14,38 @@ This integration is built on top of [Zod PocketBase](https://zod-pocketbase.verc
 
 Astro includes an `astro add` command to automate the setup of official integrations. If you prefer, you can [install integrations manually](/start-here/manual-setup) instead.
 
-To install `astro-pocketbase`, run the following from your project directory and follow the prompts:
+<Steps>
 
-<Tabs>
-  <TabItem label="npm">
+1. To install `astro-pocketbase`, run the following from your project directory and follow the prompts:
+
+    <Tabs>
+      <TabItem label="npm">
+        ```shell
+        npx astro add astro-pocketbase
+        ```
+      </TabItem>
+      <TabItem label="pnpm">
+        ```shell
+        pnpm astro add astro-pocketbase
+        ```
+      </TabItem>
+      <TabItem label="yarn">
+        ```shell
+        yarn astro add astro-pocketbase
+        ```
+      </TabItem>
+    </Tabs>
+
+2. You also need to provide 3 environment variables for **Astro PocketBase** to retrieve your collections:
+
     ```shell
-    npx astro add astro-pocketbase
+    # This will only be available when run on the server!
+    ASTRO_POCKETBASE_ADMIN_EMAIL="admin@mydomain.com"
+    ASTRO_POCKETBASE_ADMIN_PASSWORD="mypassword"
+    # This will be available everywhere!
+    PUBLIC_ASTRO_POCKETBASE_URL="https://myproject.pockethost.io"
     ```
-  </TabItem>
-  <TabItem label="pnpm">
-    ```shell
-    pnpm astro add astro-pocketbase
-    ```
-  </TabItem>
-  <TabItem label="yarn">
-    ```shell
-    yarn astro add astro-pocketbase
-    ```
-  </TabItem>
-</Tabs>
+
+</Steps>
 
 If you run into any issues, [feel free to report them to us on GitHub](https://github.com/gbouteiller/astro-pocketbase/issues) and try the manual setup instead.
-
-## Environment variables
-
-You also need to provide 3 environment variables for **Astro PocketBase** to retrieve your collections:
-
-```shell
-# This will only be available when run on the server!
-ASTRO_POCKETBASE_ADMIN_EMAIL="admin@mydomain.com"
-ASTRO_POCKETBASE_ADMIN_PASSWORD="mypassword"
-# This will be available everywhere!
-PUBLIC_ASTRO_POCKETBASE_URL="https://myproject.pockethost.io"
-```
