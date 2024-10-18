@@ -1,5 +1,11 @@
 # astro-pocketbase
 
+## 0.10.0
+
+### Minor Changes
+
+- add zod-pocketbase to exports
+
 ## 0.9.0
 
 ### Minor Changes

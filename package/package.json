@@ -1,6 +1,6 @@
 {
   "name": "astro-pocketbase",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "Astro integration to ease the use of Pocketbase in your Astro projects",
   "author": {
     "email": "gregory.bouteiller@niama.re",
@@ -43,8 +43,8 @@
   "dependencies": {
     "astro-integration-kit": "^0.16.1",
     "dotenv": "^16.4.5",
-    "es-toolkit": "^1.25.1",
-    "zod-pocketbase": "^0.3.4"
+    "es-toolkit": "^1.25.2",
+    "zod-pocketbase": "^0.3.5"
   },
   "devDependencies": {
     "pocketbase": "^0.21.5",
