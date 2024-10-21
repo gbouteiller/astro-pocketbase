@@ -1,6 +1,6 @@
 {
   "name": "astro-pocketbase",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "Astro integration to ease the use of PocketBase in your Astro projects",
   "author": {
     "email": "gregory.bouteiller@niama.re",

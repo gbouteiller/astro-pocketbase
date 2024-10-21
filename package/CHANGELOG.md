@@ -1,5 +1,11 @@
 # astro-pocketbase
 
+## 0.10.1
+
+### Patch Changes
+
+- c558cce: upgrade zod-pocketbase
+
 ## 0.10.0
 
 ### Minor Changes
