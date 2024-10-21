@@ -64,8 +64,8 @@ const Post = select(PostRecord, ["content", "title"], {
 
 const options = listOptionsFrom(Post, { sort: "-updated" });
 
-const unsafeData = await Astro.locals.pocketbase.collection("posts").getList(1, 10, options);
-const firstPosts = Post.array().parse(unsafeData);
+const { items } = await Astro.locals.pocketbase.collection("posts").getList(1, 10, options);
+const firstPosts = Post.array().parse(items);
 ```
 
 Write this:
@@ -81,7 +81,7 @@ const Post = select(PostRecord, ["content", "title"], {
   author: select(AuthorRecord, ["name"])
 });
 
-const firstPosts = getRecords("posts", { perPage: 10, schema: Post, sort: "-updated" });
+const { items: firstPosts } = getRecords("posts", { perPage: 10, schema: Post, sort: "-updated" });
 ```
 
 :::tip[What you get]
