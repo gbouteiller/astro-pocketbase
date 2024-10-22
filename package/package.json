@@ -44,7 +44,7 @@
     "astro-integration-kit": "^0.16.1",
     "dotenv": "^16.4.5",
     "es-toolkit": "^1.25.2",
-    "zod-pocketbase": "^0.3.6"
+    "zod-pocketbase": "^0.3.7"
   },
   "devDependencies": {
     "pocketbase": "^0.21.5",
