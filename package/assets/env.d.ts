@@ -1,4 +1,4 @@
-import type { TypedPocketbase } from "src/lib/pocketbase/schemas";
+import type { TypedPocketbase } from "../../../src/lib/pocketbase/schemas";
 
 declare global {
   namespace App {

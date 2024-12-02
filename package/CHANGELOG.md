@@ -1,5 +1,11 @@
 # astro-pocketbase
 
+## 0.10.4
+
+### Patch Changes
+
+- avoid the need of path in tsconfig.json for locals declaration
+
 ## 0.10.3
 
 ### Patch Changes
