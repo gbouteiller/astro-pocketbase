@@ -2,13 +2,14 @@ import { createResolver, defineIntegration } from "astro-integration-kit";
 import dotenv from "dotenv";
 import { readFileSync, writeFileSync } from "node:fs";
 import type { CollectionModel } from "pocketbase";
-import { Config, Credentials, fetchCollections, generate } from "zod-pocketbase";
+import { Config, Credentials, defaultConfig, fetchCollections } from "zod-pocketbase";
+import { generate } from "zod-pocketbase/server";
 
 dotenv.config();
 
 export const integration = defineIntegration({
   name: "astro-pocketbase",
-  optionsSchema: Config.omit({ adminEmail: true, adminPassword: true, output: true, url: true }),
+  optionsSchema: Config.omit({ adminEmail: true, adminPassword: true, output: true, url: true }).default(defaultConfig),
   setup({ options }) {
     const { resolve } = createResolver(import.meta.url);
 
